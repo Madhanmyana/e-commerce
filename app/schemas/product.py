@@ -1,20 +1,20 @@
 from pydantic import BaseModel
 
 #request schema
-class ProductCreate():
+class ProductCreate(BaseModel):
     name:str
     description:str
     price:float
     stock:int
 
 #response schema
-class ProductResponse():
+class ProductResponse(BaseModel):
     name:str
     description:str
     price:float
     stock:int
 
-class ProductUpdate():
+class ProductUpdate(BaseModel):
     name:str
     description:str
     price:float
