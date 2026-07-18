@@ -40,12 +40,11 @@ def update_product_by_id(id:int,update_product:ProductUpdate,db:Session):
         return product
     raise HTTPException(status_code=404,detail='Product not exist')
 
-def delete_product_by_id(id:int):
-    product=db.query(Product).filter(product.id==id).first()
+def delete_product_by_id(id:int,db:Session):
+    product=db.query(Product).filter(Product.id==id).first()
     if product:
         db.delete(product)
         db.commit()
-        db.refresh(product)
         return product
 
     raise HTTPException(status_code=404,detail='Product not exist')
