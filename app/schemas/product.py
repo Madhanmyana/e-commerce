@@ -19,3 +19,6 @@ class ProductUpdate(BaseModel):
     description:str
     price:float
     stock:int
+
+class GetAllProductsResponse(BaseModel):
+    products: list[ProductResponse]

@@ -1,4 +1,5 @@
 from fastapi import HTTPException,Depends
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from models.product import Product
@@ -48,3 +49,17 @@ def delete_product_by_id(id:int,db:Session):
         return product
 
     raise HTTPException(status_code=404,detail='Product not exist')
+
+def pagination(lmt:int,page:int,db:Session):
+    off_set=(page-1)*lmt
+    products=db.query(Product).limit(lmt).offset(off_set).all()
+    return {
+        'products':products
+        }
+
+def search(keyword:str,db:Session):
+    keyword=keyword.lower()
+    keyword_products=db.query(Product).filter(func.lower(Product.name).like(f"%{keyword}%"))
+    return {
+        'products':keyword_products
+    }
