@@ -1,6 +1,7 @@
 from fastapi import HTTPException,Depends
-from sqlalchemy import func
+from sqlalchemy import func, asc, desc
 from sqlalchemy.orm import Session
+from math import ceil
 
 from models.product import Product
 from schemas.product import ProductCreate, ProductResponse, ProductUpdate
@@ -50,6 +51,7 @@ def delete_product_by_id(id:int,db:Session):
 
     raise HTTPException(status_code=404,detail='Product not exist')
 
+"""
 def pagination(lmt:int,page:int,db:Session):
     off_set=(page-1)*lmt
     products=db.query(Product).limit(lmt).offset(off_set).all()
@@ -63,3 +65,52 @@ def search(keyword:str,db:Session):
     return {
         'products':keyword_products
     }
+"""
+
+def advanced_search(db:Session, search:str|None = None, min_price:float|None = None, max_price:float|None = None, sort: str|None = None, order: str = 'asc', page:int = 1, lmt: int = 10):
+    query=db.query(Product)
+
+    #search
+    if search:
+        search=search.lower()
+        query=query.filter(or_(func.lower(Product.name).like(f"%{search}%"),func.lower(Product.description).like(f"%{search}%")))
+    
+    # price filter
+    if min_price is not None:
+        query=query.filter(Product.price>=min_price)
+    
+    if max_price is not None:
+        query=query.filter(Product.price<=max_price)
+
+    # sorting
+    if sort:
+        sort_fields={
+            "name":Product.name,
+            "price":Product.price,
+            "stock":Product.stock
+        }
+
+        column=sort_fields.get(sort)
+
+        if not column:
+            raise HTTPException(status_code=400,detail="Invalid sort field")
+
+        if order.lower()=='desc':
+            query=query.order_by(desc(column))
+        else:
+            query=query.order_by(asc(column))
+    
+    total=query.count()
+        
+    #pagination
+    off_set=(page-1)*lmt
+
+    products=query.offset(off_set).limit(lmt).all()
+
+    return{
+        "page": page,
+        "limit": lmt,
+        "total": total,
+        "total_pages": ceil(total / lmt),
+        "products": products
+        }

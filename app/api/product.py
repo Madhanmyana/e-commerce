@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
 
-from services.product_service import product_create,all_products,get_product_by_id,update_product_by_id,delete_product_by_id,pagination,search
+from services.product_service import product_create,all_products,get_product_by_id,update_product_by_id,delete_product_by_id,advanced_search
 from db.database import get_db
 from schemas.product import ProductCreate,ProductResponse,ProductUpdate,GetAllProductsResponse
 from dependencies.dependencies import get_current_user
@@ -29,6 +29,7 @@ def update_by_id(id:int,update_product:ProductUpdate,db:Session=Depends(get_db),
 def delete_product(id:int,db:Session=Depends(get_db),current_user=Depends(get_current_user)):
       return delete_product_by_id(id,db)
 
+"""
 @router.get('/pagination',response_model=GetAllProductsResponse)
 def page_ination(lmt:int=10,page:int=1,db:Session=Depends(get_db)):
       return pagination(lmt,page,db)
@@ -36,3 +37,8 @@ def page_ination(lmt:int=10,page:int=1,db:Session=Depends(get_db)):
 @router.get('/search',response_model=GetAllProductsResponse)
 def search_by_keyword(keyword:str,db:Session=Depends(get_db)):
       return search(keyword,db)
+"""
+
+@router.get('/advanced_search',response_model=GetAllProductsResponse)
+def search(db:Session=Depends(get_db), search:str|None = None, min_price:float|None = None, max_price:float|None = None, sort: str|None = None, order: str = 'asc', page:int = 1, lmt: int = 10):
+      return advanced_search(db, search, min_price, max_price, sort, order, page, lmt)

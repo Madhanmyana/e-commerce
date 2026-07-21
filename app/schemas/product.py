@@ -21,4 +21,8 @@ class ProductUpdate(BaseModel):
     stock:int
 
 class GetAllProductsResponse(BaseModel):
+    page: int
+    limit: int
+    total: int
+    total_pages: int
     products: list[ProductResponse]
