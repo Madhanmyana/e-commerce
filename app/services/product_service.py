@@ -39,6 +39,10 @@ def update_product_by_id(id:int,update_product:ProductUpdate,db:Session):
         product.description=update_product.description
         product.price=update_product.price
         product.stock=update_product.stock
+
+        db.commit()
+        db.refresh(product)
+        
         return product
     raise HTTPException(status_code=404,detail='Product not exist')
 

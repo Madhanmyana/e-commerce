@@ -1,4 +1,4 @@
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Column, String, Integer, DateTime,Float,ForeignKey
 from datetime import datetime,timezone
 
@@ -17,6 +17,10 @@ class Product(Base):
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
 
+    # relationship
+    category = relationship("Category",back_populates="products")
+
+
 class Category(Base):
 
     __tablename__='category'
@@ -26,3 +30,6 @@ class Category(Base):
     description=Column(String)
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
+
+    #relationship
+    products = relationship("Product",back_populates="category")
