@@ -15,7 +15,8 @@ def product_create(product:ProductCreate,db:Session):
         name=product.name,
         description=product.description,
         price=product.price,
-        stock=product.stock
+        stock=product.stock,
+        category_id=product.category_id
     )
 
     db.add(new_product)
@@ -38,7 +39,8 @@ def update_product_by_id(id:int,update_product:ProductUpdate,db:Session):
         product.name=update_product.name
         product.description=update_product.description
         product.price=update_product.price
-        product.stock=update_product.stock
+        product.stock=update_product.stock,
+        category_id=product.category_id
 
         db.commit()
         db.refresh(product)

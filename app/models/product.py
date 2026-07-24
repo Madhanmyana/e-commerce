@@ -33,3 +33,23 @@ class Category(Base):
 
     #relationship
     products = relationship("Product",back_populates="category")
+
+class Cart(BaseModel):
+
+    __tablename__='cart'
+
+    id=Column(Integer,primary_key=True)
+    user_id=Column(Integer,ForeignKey('user.id'),nullable=False,unique=True)
+    created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
+    updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
+
+class CartItem(BaseModel):
+
+    __tablename__='cartitem'
+
+    id=Column(Integer,primary_key=True)
+    cart_id=Column(Integer)
+    product_id=Column(Integer)
+    quantity=Column(Integer)
+    created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
+    updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
