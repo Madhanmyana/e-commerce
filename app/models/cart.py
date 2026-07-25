@@ -4,33 +4,30 @@ from datetime import datetime,timezone
 
 Base=declarative_base()
 
-class Product(Base):
+class Cart(Base):
 
-    __tablename__='product'
-
-    id=Column(Integer,primary_key=True)
-    name=Column(String,index=True,nullable=False)
-    description=Column(String)
-    price=Column(Float,nullable=False)
-    stock=Column(Integer,nullable=False)
-    category_id=Column(Integer,ForeignKey('category.id'),nullable=False)
-    created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
-    updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
-
-    # relationship
-    category = relationship("Category",back_populates="products")
-    cart_items = relationship("CartItem",back_populates="product")
-
-
-class Category(Base):
-
-    __tablename__='category'
+    __tablename__='cart'
 
     id=Column(Integer,primary_key=True)
-    name=Column(String,index=True,nullable=False)
-    description=Column(String)
+    user_id=Column(Integer,ForeignKey('user.id'),nullable=False,unique=True)
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
 
     #relationship
-    products = relationship("Product",back_populates="category")
+    user = relationship("User",back_populates="cart")
+    items = relationship("CartItem",back_populates="cart")
+
+class CartItem(Base):
+
+    __tablename__='cartitem'
+
+    id=Column(Integer,primary_key=True)
+    cart_id=Column(Integer,ForeignKey('cart.id'),unique=True)
+    product_id=Column(Integer,unique=True)
+    quantity=Column(Integer)
+    created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
+    updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
+
+    #relationship
+    cart = relationship("Cart",back_populates="items")
+    product = relationship("Product",back_populates="cart_items")

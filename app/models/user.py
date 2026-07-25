@@ -1,4 +1,4 @@
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base,relationship
 from sqlalchemy import Column, String, Integer, DateTime
 from datetime import datetime,timezone
 
@@ -15,3 +15,6 @@ class User(Base):
     role=Column(String,default='user')
     created_at=Column(DateTime,default=lambda: datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda: datetime.now(timezone.utc),onupdate=lambda: datetime.now(timezone.utc))
+
+    #relationship
+    cart = relationship("Cart",back_populates="user",uselist=False)
