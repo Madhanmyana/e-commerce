@@ -1,8 +1,7 @@
-from sqlalchemy.orm import declarative_base,relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, DateTime
 from datetime import datetime,timezone
-
-Base=declarative_base()
+from db.database import Base
 
 class User(Base):
 

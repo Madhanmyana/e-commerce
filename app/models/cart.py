@@ -1,15 +1,14 @@
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, DateTime,Float,ForeignKey
 from datetime import datetime,timezone
-
-Base=declarative_base()
+from db.database import Base
 
 class Cart(Base):
 
     __tablename__='cart'
 
     id=Column(Integer,primary_key=True)
-    user_id=Column(Integer,ForeignKey('user.id'),nullable=False,unique=True)
+    user_id=Column(Integer,ForeignKey('users.id'),nullable=False,unique=True)
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
 

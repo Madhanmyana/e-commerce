@@ -1,4 +1,5 @@
-from fastapi import Session,HTTPException
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 from schemas.cart import AddToCartRequest,UpdateCartItemRequest
 from models.product import Product

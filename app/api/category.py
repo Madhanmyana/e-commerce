@@ -9,7 +9,7 @@ from dependencies.dependencies import get_current_user,require_admin
 router=APIRouter()
 
 @router.post('/categories',response_model=CategoryResponse)
-def createcategory(category:CategoryCreate,
+def create_category(category:CategoryCreate,
                     db:Session=Depends(get_db),
                     current_user=Depends(require_admin)):
                     
