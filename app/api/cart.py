@@ -17,5 +17,5 @@ def add_item_to_cart(cart: AddToCartRequest, user_id: int = Depends(get_current_
     return add_to_cart(user_id, cart, db)
 
 @router.put('/cart{cart_item_id}')
-def update_cart(cart:UpdateCartItemRequest, user_id:int=Depends(get_current_user), db:Session=Depends(get_db)):
-    return update_cart_item(user_id, cart, db)
+def update_cart(cart_item_id:int ,cart:UpdateCartItemRequest, user_id:int=Depends(get_current_user), db:Session=Depends(get_db)):
+    return update_cart_item(cart_item_id, user_id, cart, db)
