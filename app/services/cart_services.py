@@ -102,10 +102,14 @@ def clear_cart(user_id: int, db: Session):
     existing_cart_items = db.query(CartItem).filter(CartItem.cart_id == user_cart.id).all()
 
     if not existing_cart_items:
-        raise HTTPException(status_code=404,detail="Cart is empty")
-    
-    db.delete(existing_cart_items)
-    db.commit()
-    return {
-        "items": user_cart.items
+        return {
+        "items": []
     }
+    else:
+        for items in existing_cart_items:
+            db.delete(items)
+            
+        db.commit()
+        return {
+            "items": []
+        }

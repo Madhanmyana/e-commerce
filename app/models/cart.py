@@ -22,7 +22,7 @@ class CartItem(Base):
 
     id=Column(Integer,primary_key=True)
     cart_id=Column(Integer,ForeignKey('cart.id'),unique=True)
-    product_id=Column(Integer,unique=True)
+    product_id=Column(Integer,ForeignKey('product.id'))
     quantity=Column(Integer)
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))
     updated_at=Column(DateTime,default=lambda:datetime.now(timezone.utc),onupdate=lambda:datetime.now(timezone.utc))
