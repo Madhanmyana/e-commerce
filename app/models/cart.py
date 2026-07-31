@@ -1,6 +1,7 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, DateTime,Float,ForeignKey
 from datetime import datetime,timezone
+
 from db.database import Base
 
 class Cart(Base):
@@ -21,7 +22,7 @@ class CartItem(Base):
     __tablename__='cartitem'
 
     id=Column(Integer,primary_key=True)
-    cart_id=Column(Integer,ForeignKey('cart.id'),unique=True)
+    cart_id=Column(Integer,ForeignKey('cart.id'))
     product_id=Column(Integer,ForeignKey('product.id'))
     quantity=Column(Integer)
     created_at=Column(DateTime,default=lambda:datetime.now(timezone.utc))

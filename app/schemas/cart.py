@@ -2,6 +2,10 @@ from pydantic import BaseModel,ConfigDict
 from datetime import datetime
 
 #request schema
+class AddToCartRequest(BaseModel):
+    product_id:int
+    quantity:int
+    
 class UpdateCartItemRequest(BaseModel):
     quantity:int
 
@@ -11,10 +15,6 @@ class CartItemSummaryResponse(BaseModel):
     name:str
     price:float
     model_config = ConfigDict(from_attributes=True)
-
-class AddToCartRequest(BaseModel):
-    product_id:int
-    quantity:int
 
 class CartItemResponse(BaseModel):
     product:CartItemSummaryResponse
