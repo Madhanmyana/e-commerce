@@ -1,3 +1,19 @@
-# request schema
+from pydantic import BaseModel, ConfigDict
+from datetime import datetime
 
 # response schema
+class OrderItemResponse(BaseModel):
+    id:int
+    product_name:str
+    price:float
+    quantity:int
+    model_config = ConfigDict(from_attributes=True)
+
+class OrderResponse(BaseModel):
+    id: int
+    total: float
+    status: str
+    created_at: datetime
+    items: list[OrderItemResponse]
+
+    model_config = ConfigDict(from_attributes=True)
