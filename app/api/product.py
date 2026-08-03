@@ -17,15 +17,15 @@ def create_product(product:ProductCreate,db:Session=Depends(get_db),current_user
 def get_all_product(db:Session=Depends(get_db)):
       return all_products(db)
 
-@router.get('/product{id}',response_model=ProductResponse)
+@router.get('/product/{id}',response_model=ProductResponse)
 def get_by_id(id:int,db:Session=Depends(get_db)):
       return get_product_by_id(id,db)
 
-@router.put('/product{id}',response_model=ProductResponse)
+@router.put('/product/{id}',response_model=ProductResponse)
 def update_by_id(id:int,update_product:ProductUpdate,db:Session=Depends(get_db),current_user=Depends(require_admin)):
       return update_product_by_id(id,update_product,db)
 
-@router.delete('/product{id}',response_model=ProductResponse)
+@router.delete('/product/{id}',response_model=ProductResponse)
 def delete_product(id:int,db:Session=Depends(get_db),current_user=Depends(require_admin)):
       return delete_product_by_id(id,db)
 

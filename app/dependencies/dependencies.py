@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi import Depends,HTTPException
 
 from app.db.database import get_db
-from core.security import verify_token
+from app.core.security import verify_token
 from app.models.user import User
 
 oauth2_schema=OAuth2PasswordBearer(tokenUrl='login')

@@ -4,9 +4,9 @@ from sqlalchemy.orm import Session
 
 from app.schemas.user import UserCreate, UserLogin
 from app.db.database import get_db
-from models import user
+from app.models import user
 from app.models.user import User
-from core.security import hash_password,verify_password,create_jwt_token
+from app.core.security import hash_password,verify_password,create_jwt_token
 
 def create_user(user_data:UserCreate,db:Session=Depends(get_db)):
     if db.query(User).filter(User.email==user_data.email).first():
