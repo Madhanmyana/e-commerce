@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from models.order import Order, OrderItem
 from models.cart import Cart, CartItem
 from models.product import Product
+from schemas.order import UpdateOrderStatusRequest
 
 def place_order(user_id:int,db:Session):
 
@@ -60,4 +61,36 @@ def place_order(user_id:int,db:Session):
         'id':new_order.id,
         'total':total,
         'items':new_order.items
+    }
+
+def get_orders(user_id:int,db:Session):
+    orders=db.query(Order).filter(Order.user_id==user_id).all()
+
+    return {
+        'orders':orders
+    }
+
+def get_order_by_id(user_id:int,order_id:int,db:Session):
+    order=db.query(Order).filter(Order.user_id==user_id,Order.id==order_id).first()
+
+    if not order:
+        raise HTTPException(status_code=404,detail='order not found')
+
+    return{
+        'order':order
+    }
+
+def update_order_status(order_id:int,update: UpdateOrderStatusRequest,db:Session):
+    order=db.query(Order).filter(Order.id==order_id).first()
+
+    if not order:
+        raise HTTPException(status_code=404,detail='order not found')
+
+    order.status=update.status
+    db.commit()
+    db.refresh(order)
+
+    return{
+        'order_id':order.id,
+        'status':order.status
     }
