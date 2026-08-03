@@ -1,10 +1,10 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from models.order import Order, OrderItem
-from models.cart import Cart, CartItem
-from models.product import Product
-from schemas.order import UpdateOrderStatusRequest
+from app.models.order import Order, OrderItem
+from app.models.cart import Cart, CartItem
+from app.models.product import Product
+from app.schemas.order import UpdateOrderStatusRequest
 
 def place_order(user_id:int,db:Session):
 

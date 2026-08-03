@@ -1,9 +1,9 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from schemas.cart import AddToCartRequest,UpdateCartItemRequest
-from models.product import Product
-from models.cart import Cart,CartItem
+from app.schemas.cart import AddToCartRequest,UpdateCartItemRequest
+from app.models.product import Product
+from app.models.cart import Cart,CartItem
 
 
 def get_cart(user_id:int,db:Session):

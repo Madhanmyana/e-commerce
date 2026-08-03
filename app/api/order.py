@@ -1,10 +1,10 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
 
-from schemas.order import OrderItemResponse,OrderResponse,UpdateOrderStatusRequest
-from services.order_services import place_order,get_orders,get_order_by_id,update_order_status
-from dependencies.dependencies import get_current_user,require_admin
-from db.database import get_db
+from app.schemas.order import OrderItemResponse,OrderResponse,UpdateOrderStatusRequest
+from app.services.order_services import place_order,get_orders,get_order_by_id,update_order_status
+from app.dependencies.dependencies import get_current_user,require_admin
+from app.db.database import get_db
 
 router=APIRouter()
 

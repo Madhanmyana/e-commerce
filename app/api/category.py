@@ -1,10 +1,10 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
 
-from services.category_services import create_category,get_all_categories,get_category_by_id,update_category_by_id,delete_category
-from schemas.product  import CategoryCreate,CategoryResponse,GetAllCategoriesResponse
-from db.database import get_db
-from dependencies.dependencies import get_current_user,require_admin
+from app.services.category_services import create_category,get_all_categories,get_category_by_id,update_category_by_id,delete_category
+from app.schemas.product  import CategoryCreate,CategoryResponse,GetAllCategoriesResponse
+from app.db.database import get_db
+from app.dependencies.dependencies import get_current_user,require_admin
 
 router=APIRouter()
 

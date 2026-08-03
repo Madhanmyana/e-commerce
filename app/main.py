@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 
 from app import models
-from db.database import session,engine,Base
-from api.user import router as user_router
-from api.product import router as product_router
-from api.category import router as category_router
-from api.cart import router as cart_router
-from api.order import router as order_router
-from api.health import router as health_router
+from app.db.database import session,engine,Base
+from app.api.user import router as user_router
+from app.api.product import router as product_router
+from app.api.category import router as category_router
+from app.api.cart import router as cart_router
+from app.api.order import router as order_router
+from app.api.health import router as health_router
 
 app=FastAPI()
 

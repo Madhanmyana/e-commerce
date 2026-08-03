@@ -3,9 +3,9 @@ from sqlalchemy import func, asc, desc
 from sqlalchemy.orm import Session
 from math import ceil
 
-from models.product import Product
-from schemas.product import ProductCreate, ProductResponse, ProductUpdate
-from dependencies.dependencies import get_current_user
+from app.models.product import Product
+from app.schemas.product import ProductCreate, ProductResponse, ProductUpdate
+from app.dependencies.dependencies import get_current_user
 
 def product_create(product:ProductCreate,db:Session):
     if db.query(Product).filter(Product.name==product.name).first():

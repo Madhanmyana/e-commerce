@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import datetime
-from models.order import OrderStatus
+from app.models.order import OrderStatus
 
 #request schema
 class UpdateOrderStatusRequest(BaseModel):

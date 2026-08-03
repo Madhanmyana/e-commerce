@@ -2,10 +2,10 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from schemas.user import UserCreate, UserLogin
-from db.database import get_db
+from app.schemas.user import UserCreate, UserLogin
+from app.db.database import get_db
 from models import user
-from models.user import User
+from app.models.user import User
 from core.security import hash_password,verify_password,create_jwt_token
 
 def create_user(user_data:UserCreate,db:Session=Depends(get_db)):

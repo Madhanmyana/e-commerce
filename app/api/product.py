@@ -1,10 +1,10 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
 
-from services.product_service import product_create,all_products,get_product_by_id,update_product_by_id,delete_product_by_id,advanced_search
-from db.database import get_db
-from schemas.product import ProductCreate,ProductResponse,ProductUpdate,GetAllProductsResponse
-from dependencies.dependencies import get_current_user,require_admin
+from app.services.product_service import product_create,all_products,get_product_by_id,update_product_by_id,delete_product_by_id,advanced_search
+from app.db.database import get_db
+from app.schemas.product import ProductCreate,ProductResponse,ProductUpdate,GetAllProductsResponse
+from app.dependencies.dependencies import get_current_user,require_admin
 
 
 router=APIRouter()

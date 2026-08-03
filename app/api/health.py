@@ -1,6 +1,6 @@
 from fastapi import APIRouter,Depends
 
-from dependencies.dependencies import require_admin
+from app.dependencies.dependencies import require_admin
 
 router=APIRouter()
 

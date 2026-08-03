@@ -4,7 +4,7 @@ from datetime import datetime,timezone
 from enum import Enum as pyEnum
 
 
-from db.database import Base
+from app.db.database import Base
 
 class OrderStatus(str,pyEnum):
     PENDING = "Pending"

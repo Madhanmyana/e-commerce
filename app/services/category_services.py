@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
-from schemas.product import CategoryCreate,CategoryUpdate
-from models.product import Category
+from app.schemas.product import CategoryCreate,CategoryUpdate
+from app.models.product import Category
 def create_category(category:CategoryCreate,db:Session):
     if db.query(Category).filter(Category.name==category.name).first():
         raise HTTPException(status_code=400,detail='category alredy exist')
