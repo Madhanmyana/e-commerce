@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-import models
+from app import models
 from db.database import session,engine,Base
 from api.user import router as user_router
 from api.product import router as product_router
